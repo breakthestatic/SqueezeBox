@@ -1,0 +1,92 @@
+{
+  "intents": [
+    {
+      "intent": "VolumeIntent",
+      "slots": [
+        {
+          "name": "Volume",
+          "type": "AMAZON.Number"
+        }
+      ]
+    },
+    {
+      "intent": "MuteIntent"
+    },
+    {
+      "intent": "UnMuteIntent"
+    },
+    {
+      "intent": "PlayArtistWithPlayerIntent",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "AMAZON.Room"
+        },
+        {
+          "name": "Artist",
+          "type": "AMAZON.Artist"
+        }
+      ]
+    },
+    {
+      "intent": "PlayArtistIntent",
+      "slots": [
+        {
+          "name": "Artist",
+          "type": "AMAZON.Artist"
+        }
+      ]
+    },
+    {
+      "intent": "PlayGenreIntent",
+      "slots": [
+        {
+          "name": "Genre",
+          "type": "AMAZON.Genre"
+        }
+      ]
+    },
+    {
+      "intent": "PlayMusicIntent",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "AMAZON.Room"
+        }
+      ]
+    },
+    {
+      "intent": "StopMusicIntent",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "AMAZON.Room"
+        }
+      ]
+    },
+    {
+      "intent": "PowerOnIntent",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "AMAZON.Room"
+        }
+      ]
+    },
+    {
+      "intent": "PowerOffIntent",
+      "slots": [
+        {
+          "name": "Player",
+          "type": "AMAZON.Room"
+        }
+      ]
+    },
+    {
+      "intent": "PowerOffAllIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
