@@ -1,5 +1,3 @@
-var converter = require('number-to-words');
-
 function SqueezePlayer (server, properties) {
     this.server = server;
     this.properties = properties;
@@ -37,18 +35,13 @@ SqueezePlayer.prototype.volume = function (level) {
     return this.request(['mixer', 'volume', level]);
 };
 
-SqueezePlayer.prototype.playArtist = function (artist) {
-    console.log('searching for artist: ' + artist);
+SqueezePlayer.prototype.playArtist = function (artistName) {
+    console.log('searching for artist: ' + artistName);
     return new Promise((resolve, reject) => {
-        this.request(['artists', 0, 100, 'search: ' + artist]).then((reply) => {
-            if (reply.result.count === 0 && !isNaN(parseInt(artist))) {
-                var number = parseInt(artist);
-                var adjustedArtist = artist.replace(number, converter.toWords(number));
-                return this.playArtist(adjustedArtist);
-            }
-            var artistId = reply.result.artists_loop[0].id;
+        this.server.searchArtists(artistName).then((artist) => {
+            console.log('found: ' + JSON.stringify(artist));
             this.request(['playlist', 'shuffle', 1]).then(
-                this.request(['playlistcontrol', 'cmd:load', 'artist_id:'+ artistId]).then(() => {
+                this.request(['playlistcontrol', 'cmd:load', 'artist_id:'+ artist.id]).then(() => {
                     resolve();
                 })
             );

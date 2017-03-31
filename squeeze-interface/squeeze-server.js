@@ -1,4 +1,5 @@
 var jayson = require('jayson/promise');
+var Fuse = require('fuse.js');
 var SqueezePlayer = require('./squeeze-player');
 
 function SqueezeServer (host, port) {
@@ -18,6 +19,57 @@ function SqueezeServer (host, port) {
                 resolve();
             });
         });
+    };
+
+    this.getArtists = function (start, count, list) {
+        var deferred = Promise.defer();
+
+        start = start || 0;
+        count = count || 100;
+        list = list || [];
+        
+        this.request(null, ['artists', start, count]).then((reply) => {
+            var artists = reply.result.artists_loop;
+            for (var i = 0; i < artists.length; i++) {
+                list.push(artists[i]);
+            }
+
+            if (reply.result.count > list.length) {
+                this.getArtists(start + count, count, list).then(() => {
+                    deferred.resolve(list);
+                });
+            } else {
+                deferred.resolve(list);
+            }
+        });
+        
+        return deferred.promise;
+    }
+
+    this.searchArtists = function (query) {
+        return new Promise((resolve, reject) => {
+            this.getArtists().then((list) => {
+                var artists = this.search(query, ['artist'], list);
+                resolve(artists[0]);
+            });
+        });
+    };
+
+    this.search = function (query, fields, list) {
+        var options = {
+            shouldSort: true,
+            threshold: 0.6,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: fields
+        };
+
+        var fuse = new Fuse(list, options); // "list" is the item array
+        var result = fuse.search(query);
+
+        return result;
     };
     
     this.request = function (player, params) {

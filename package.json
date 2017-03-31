@@ -10,11 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "alexa-sdk": "^1.0.7",
-    "jayson": "^2.0.3",
-    "number-to-words": "^1.2.3"
+    "fuse.js": "^2.6.2",
+    "jayson": "^2.0.3"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-zip": "^4.0.0"
+    "gulp-zip": "^4.0.0",
+    "moment": "^2.18.1"
   }
 }
