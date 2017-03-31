@@ -4,6 +4,6 @@ const moment = require('moment');
  
 gulp.task('default', () =>
     gulp.src(['./**', '!./dist'])
-        .pipe(zip(moment().format('Build_YYYY-MM-DD-HH.mm.ss') + '.zip'))
+        .pipe(zip('Build_' + moment().format('YYYY-MM-DD-HH.mm.ss') + '.zip'))
         .pipe(gulp.dest('dist'))
 );
