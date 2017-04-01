@@ -96,6 +96,7 @@ function SqueezeServer (host, port) {
     this.getPlayerByName = function (name) {
         var self = this;
 
+        log.info('Searching for player: ' + this.attributes['currentPlayer']);
         return new Promise(function (resolve, reject) {
             if (players === null) {
                 getPlayers.call(self).then(function (reply) {
@@ -110,6 +111,7 @@ function SqueezeServer (host, port) {
     function getPlayers () {
         var self = this;
 
+        log.info('Fetching players');
         return new Promise(function (resolve, reject) {
             self.request(null, ['players', 0, 100]).then(function (reply) {
                 var playerList = reply.result.players_loop;
