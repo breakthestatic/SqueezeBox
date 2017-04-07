@@ -1,6 +1,7 @@
 var jayson = require('jayson/promise');
 var Fuse = require('fuse.js');
 var SqueezePlayer = require('./squeeze-player');
+var log = require('../log');
 
 function SqueezeServer (host, port) {
     this.host = host;
@@ -96,7 +97,7 @@ function SqueezeServer (host, port) {
     this.getPlayerByName = function (name) {
         var self = this;
 
-        log.info('Searching for player: ' + this.attributes['currentPlayer']);
+        log.info('Searching for player: ' + name);
         return new Promise(function (resolve, reject) {
             if (players === null) {
                 getPlayers.call(self).then(function (reply) {

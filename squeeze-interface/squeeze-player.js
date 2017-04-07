@@ -1,3 +1,5 @@
+var log = require('../log');
+
 function SqueezePlayer (server, properties) {
     this.server = server;
     this.properties = properties;
@@ -36,10 +38,10 @@ SqueezePlayer.prototype.volume = function (level) {
 };
 
 SqueezePlayer.prototype.playArtist = function (artistName) {
-    console.log('searching for artist: ' + artistName);
+    log.info('Searching for artist: ' + artistName);
     return new Promise((resolve, reject) => {
         this.server.searchArtists(artistName).then((artist) => {
-            console.log('found: ' + JSON.stringify(artist));
+            log.info('Found artist: ' + JSON.stringify(artist));
             this.request(['playlist', 'shuffle', 1]).then(
                 this.request(['playlistcontrol', 'cmd:load', 'artist_id:'+ artist.id]).then(() => {
                     resolve();
