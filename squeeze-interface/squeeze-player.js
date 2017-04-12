@@ -42,11 +42,13 @@ SqueezePlayer.prototype.playArtist = function (artistName) {
     return new Promise((resolve, reject) => {
         this.server.searchArtists(artistName).then((artist) => {
             log.info('Found artist: ' + JSON.stringify(artist));
-            this.request(['playlist', 'shuffle', 1]).then(
+            this.request(['playlist', 'shuffle', 1]).then(() => {
+                log.info('Shuffling');
                 this.request(['playlistcontrol', 'cmd:load', 'artist_id:'+ artist.id]).then(() => {
+                    log.info('Playing artist: ' + JSON.stringify(artist));
                     resolve();
-                })
-            );
+                });
+            });
         });
     });
 };
