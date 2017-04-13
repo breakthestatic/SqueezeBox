@@ -115,10 +115,10 @@ function SqueezeServer (host, port) {
         return new Promise(function (resolve, reject) {
             if (players === null) {
                 getPlayers.call(self).then(function (reply) {
-                    resolve(getPlayerByName(name));
+                    resolve(getPlayerByName.call(self, name));
                 });
             } else {
-                resolve(getPlayerByName(name));
+                resolve(getPlayerByName.call(self, name));
             }
         });
     };
@@ -140,13 +140,9 @@ function SqueezeServer (host, port) {
     }
 
     function getPlayerByName (name) {
-        var foundPlayer = null;
-        for (var player in players) {
-            if (players[player].properties.name.toLowerCase() === name.toLowerCase()) {
-                foundPlayer = players[player];
-            }
-        }
-        return foundPlayer;
+        var results = this.search(name, ['properties.name'], players);
+
+        return results.length ? results[0] : null;
     }
 }
 
