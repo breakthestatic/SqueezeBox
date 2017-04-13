@@ -37,10 +37,10 @@ SqueezePlayer.prototype.volume = function (level) {
     return this.request(['mixer', 'volume', level]);
 };
 
-SqueezePlayer.prototype.playArtist = function (artistName) {
+SqueezePlayer.prototype.playArtist = function (artistName, context) {
     log.info('Searching for artist: ' + artistName);
     return new Promise((resolve, reject) => {
-        this.server.searchArtists(artistName).then((artist) => {
+        this.server.searchArtists(artistName, context).then((artist) => {
             log.info('Found artist: ' + JSON.stringify(artist));
             this.request(['playlist', 'shuffle', 1]).then(() => {
                 log.info('Shuffling');

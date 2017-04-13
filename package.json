@@ -11,12 +11,13 @@
   "dependencies": {
     "alexa-sdk": "^1.0.7",
     "fuse.js": "^2.6.2",
-    "jayson": "^2.0.3"
+    "jayson": "^2.0.3",
+    "moment": "^2.18.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-awslambda": "^0.4.0",
-    "gulp-zip": "^4.0.0",
-    "moment": "^2.18.1"
+    "gulp-s3-upload": "^1.6.4",
+    "gulp-zip": "^4.0.0"
   }
 }

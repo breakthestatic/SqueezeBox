@@ -2,6 +2,7 @@ var jayson = require('jayson/promise');
 var Fuse = require('fuse.js');
 var SqueezePlayer = require('./squeeze-player');
 var log = require('../log');
+var moment = require('moment');
 
 function SqueezeServer (host, port) {
     this.host = host;
@@ -47,12 +48,25 @@ function SqueezeServer (host, port) {
         return deferred.promise;
     }
 
-    this.searchArtists = function (query) {
+    this.searchArtists = function (query, context) {
         return new Promise((resolve, reject) => {
-            this.getArtists().then((list) => {
-                var artists = this.search(query, ['artist'], list);
+            if (context && context.attributes['artists'] && (moment().diff(moment(context.attributes['lastArtistListSync'], 'x'), 'days')) < 5) {
+                log.info('Loading artist list from cache');
+                var artists = this.search(query, ['artist'], context.attributes['artists']);
                 resolve(artists[0]);
-            });
+            } else {
+                this.getArtists().then((list) => {
+                    if (context) {
+                        log.info('Caching artist list');
+                        context.attributes['artists'] = list;
+                        context.attributes['lastArtistListSync'] = moment().format('x');
+                    }
+
+                    var artists = this.search(query, ['artist'], list);
+                    resolve(artists[0]);
+                });
+            }
+            
         });
     };
 
