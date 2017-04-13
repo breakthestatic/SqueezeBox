@@ -25,6 +25,10 @@ SqueezePlayer.prototype.stop = function () {
     return this.request(['stop']);
 };
 
+SqueezePlayer.prototype.skip = function () {
+    return this.request(['playlist', 'index', '+1']);
+};
+
 SqueezePlayer.prototype.mute = function () {
     return this.request(['mixer', 'muting', 1]);
 };

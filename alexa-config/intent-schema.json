@@ -86,6 +86,9 @@
       "intent": "PowerOffAllIntent"
     },
     {
+      "intent": "SkipIntent"
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]

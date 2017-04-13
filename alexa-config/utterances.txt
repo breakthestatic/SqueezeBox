@@ -20,3 +20,4 @@ UnMuteIntent un mute
 PlayGenreIntent play {Genre} music
 PlayGenreIntent play some {Genre} music
 PlayGenreIntent play genre {Genre}
+SkipIntent skip
