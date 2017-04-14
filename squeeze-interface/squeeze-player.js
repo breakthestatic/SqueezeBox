@@ -48,7 +48,7 @@ SqueezePlayer.prototype.playArtist = function (artistName, context) {
             log.info('Found artist: ' + JSON.stringify(artist));
             this.request(['playlist', 'shuffle', 1]).then(() => {
                 log.info('Shuffling');
-                this.request(['playlistcontrol', 'cmd:load', 'artist_id:'+ artist.id]).then(() => {
+                this.request(['playlistcontrol', 'cmd:load', 'artist_id:' + artist.id]).then(() => {
                     log.info('Playing artist: ' + JSON.stringify(artist));
                     resolve();
                 });

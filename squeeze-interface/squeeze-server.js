@@ -50,7 +50,7 @@ function SqueezeServer (host, port) {
 
     this.searchArtists = function (query, context) {
         return new Promise((resolve, reject) => {
-            if (context && context.attributes['artists'] && (moment().diff(moment(context.attributes['lastArtistListSync'], 'x'), 'days')) < 5) {
+            if (context && context.attributes['artists'] && (moment().diff(moment(context.attributes['lastArtistListSync'], 'x'), 'days')) < 2) {
                 log.info('Loading artist list from cache');
                 var artists = this.search(query, ['artist'], context.attributes['artists']);
                 resolve(artists[0]);
