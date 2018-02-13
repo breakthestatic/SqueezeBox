@@ -4,10 +4,11 @@ var SqueezePlayer = require('./squeeze-player');
 var log = require('../log');
 var moment = require('moment');
 
-function SqueezeServer (host, port) {
+function SqueezeServer (host, port, secret) {
     this.host = host;
     this.port = port;
     this.address = this.host + ':' + this.port + '/jsonrpc.js';
+    this.secret = secret;
 
     var players = null;
     var client = jayson.client.http(this.address);
@@ -91,6 +92,7 @@ function SqueezeServer (host, port) {
         var finalParams = [];
         finalParams.push(player);
         finalParams.push(params);
+        finalParams.push(this.secret);
         return client.request('slim.request', finalParams, null);
     };
 
