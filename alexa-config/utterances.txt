@@ -1,23 +1,21 @@
-PowerOffAllIntent turn off
+VolumeIntent set the volume to {Volume} percent
+VolumeIntent set the volume to {Volume}
+MuteIntent mute
+UnMuteIntent un mute
+PlayArtistWithPlayerIntent play {Artist} in the {Player}
+PlayArtistWithPlayerIntent play {Artist} on the {Player} player
+PlayArtistIntent play {Artist}
+PlayGenreIntent play {Genre} music
+PlayGenreIntent play some {Genre} music
+PlayGenreIntent play genre {Genre}
+PlayMusicIntent play some music in the {Player}
+StopMusicIntent stop
+StopMusicIntent pause
 PowerOnIntent turn on {Player}
 PowerOnIntent turn on the {Player}
 PowerOnIntent turn on the {Player} player
 PowerOffIntent turn off {Player}
 PowerOffIntent turn off the {Player}
 PowerOffIntent turn off the {Player} player
-PlayMusicIntent play some music in the {Player}
-StopMusicIntent stop the {Player} player
-StopMusicIntent pause the {Player} player
-StopMusicIntent stop the music in the {Player}
-StopMusicIntent pause the music in the {Player}
-PlayArtistWithPlayerIntent play {Artist} in the {Player}
-PlayArtistWithPlayerIntent play {Artist} on the {Player} player
-PlayArtistIntent play {Artist}
-VolumeIntent set the volume to {Volume} percent
-VolumeIntent set the volume to {Volume}
-MuteIntent mute
-UnMuteIntent un mute
-PlayGenreIntent play {Genre} music
-PlayGenreIntent play some {Genre} music
-PlayGenreIntent play genre {Genre}
+PowerOffAllIntent turn off
 SkipIntent skip
