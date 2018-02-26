@@ -58,6 +58,22 @@ exports.handler = function (event, context, callback){
                 });
             });
         },
+        'VolumeUpIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
+                player.volumeUp().then(() => {
+                    this.emit(':tell', 'Sure.');
+                });
+            });
+        },
+        'VolumeDownIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
+                player.volumeDown().then(() => {
+                    this.emit(':tell', 'Sure.');
+                });
+            });
+        },
         'MuteIntent': function () {
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
@@ -78,7 +94,7 @@ exports.handler = function (event, context, callback){
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
                 player.playArtist(this.event.request.intent.slots.Artist.value, this).then(() => {
-                    this.emit(':tell', 'Sure.');
+                    this.emit(':tell', `Sure! Playing songs by ${this.event.request.intent.slots.Artist.value}`);
                 });
             });
         },
@@ -86,7 +102,15 @@ exports.handler = function (event, context, callback){
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
                 player.playGenre(this.event.request.intent.slots.Genre.value).then(() => {
-                    this.emit(':tell', 'Sure.');
+                    this.emit(':tell', `Sure! Playing some ${this.event.request.intent.slots.Genre.value} music.  Enjoy!`);
+                });
+            });
+        },
+        'PlaySongIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
+                player.playSong(this.event.request.intent.slots.Song.value, this.event.request.intent.slots.Artist.value, this).then(() => {
+                    this.emit(':tell', `Sure! Playing ${this.event.request.intent.slots.Song.value} by ${this.event.request.intent.slots.Artist.value}`);
                 });
             });
         },
@@ -94,18 +118,19 @@ exports.handler = function (event, context, callback){
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
                 player.stop().then(() => {
-                    this.emit(':tell', 'Sure.');
+                    this.emit(':tell', 'Sure! Stopping playback.');
                 });
             });
         },
         'PowerOffAllIntent': function () {
             log.info('Intent: ' + this.event.request.intent.name);
-            squeezeServer.ready.then((players) => {
+            squeezeServer.ready().then((players) => {
+                var promises = [];
                 for (player in players) {
-                    players[player].power(false).then(() => {
-                        this.emit(':tell', 'Sure.');
-                    });
+                    promises.push(players[player].power(false));
                 }
+
+                Promise.all(promises).then(() => this.emit(':tell', 'Sure! Turning off all players.'));
             });
         }
     };

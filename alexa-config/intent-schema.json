@@ -10,6 +10,12 @@
       ]
     },
     {
+      "intent": "VolumeUpIntent"
+    },
+    {
+      "intent": "VolumeDownIntent"
+    },
+    {
       "intent": "MuteIntent"
     },
     {
@@ -52,6 +58,19 @@
         {
           "name": "Player",
           "type": "AMAZON.Room"
+        }
+      ]
+    },
+    {
+      "intent": "PlaySongIntent",
+      "slots": [
+        {
+          "name": "Song",
+          "type": "AMAZON.MusicRecording"
+        },
+        {
+          "name": "Artist",
+          "type": "AMAZON.Artist"
         }
       ]
     },

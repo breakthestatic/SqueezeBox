@@ -41,6 +41,14 @@ SqueezePlayer.prototype.volume = function (level) {
     return this.request(['mixer', 'volume', level]);
 };
 
+SqueezePlayer.prototype.volumeUp = function () {
+    return this.request(['mixer', 'volume', '+15']);
+};
+
+SqueezePlayer.prototype.volumeDown = function () {
+    return this.request(['mixer', 'volume', '-15']);
+};
+
 SqueezePlayer.prototype.playArtist = function (artistName, context) {
     log.info('Searching for artist: ' + artistName);
     return new Promise((resolve, reject) => {
@@ -62,10 +70,25 @@ SqueezePlayer.prototype.playGenre = function (genre) {
         this.request(['genres', 0, 100, 'search: ' + genre]).then((reply) => {
             var genre = reply.result.genres_loop[0];
             this.request(['playlist', 'shuffle', 1]).then(
-                this.request(['playlistcontrol', 'cmd:load', 'genre_id:'+ genre.id]).then(() => {
+                this.request(['playlistcontrol', 'cmd:load', 'genre_id:' + genre.id]).then(() => {
                     resolve();
                 })
             );
+        });
+    });
+};
+
+SqueezePlayer.prototype.playSong = function (songTitle, artistName, context) {
+    return new Promise((resolve, reject) => {
+        this.server.searchArtists(artistName, context).then((artist) => {
+        	var filter = artist ? 'artist_id:' + artist.id : null;
+        	
+    		this.server.searchTitles(songTitle, filter).then((songs) => {
+                log.info('Playing song: ' + JSON.stringify(songTitle));
+                this.request(['playlistcontrol', 'cmd:load', 'track_id:' + songs[0].id]).then(() => {
+                    resolve();
+                })
+            });
         });
     });
 };

@@ -1,5 +1,9 @@
 VolumeIntent set the volume to {Volume} percent
 VolumeIntent set the volume to {Volume}
+VolumeUpIntent increase the volume
+VolumeUpIntent raise the volume
+VolumeDownIntent decrease the volume
+VolumeDownIntent lower the volume
 MuteIntent mute
 UnMuteIntent un mute
 PlayArtistWithPlayerIntent play {Artist} in the {Player}
@@ -9,6 +13,7 @@ PlayGenreIntent play {Genre} music
 PlayGenreIntent play some {Genre} music
 PlayGenreIntent play genre {Genre}
 PlayMusicIntent play some music in the {Player}
+PlaySongIntent play {Song} by {Artist}
 StopMusicIntent stop
 StopMusicIntent pause
 PowerOnIntent turn on {Player}

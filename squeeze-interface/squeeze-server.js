@@ -18,8 +18,8 @@ function SqueezeServer (host, port, secret) {
         var self = this;
 
         return new Promise(function (resolve, reject) {
-            getPlayers.call(self).then(function () {
-                resolve();
+            getPlayers.call(self).then(function (players) {
+                resolve(players);
             });
         });
     };
@@ -67,8 +67,32 @@ function SqueezeServer (host, port, secret) {
                     resolve(artists[0]);
                 });
             }
-            
         });
+    };
+
+    this.searchTitles = function (query, tags, start, count, list) {
+		var deferred = Promise.defer();
+
+        start = start || 0;
+        count = count || 100;
+        list = list || [];
+        
+        this.request(null, ['titles', start, count, 'search:' + query, tags || '']).then((reply) => {
+            var titles = reply.result.titles_loop;
+            for (var i = 0; i < titles.length; i++) {
+                list.push(titles[i]);
+            }
+
+            if (reply.result.count > list.length) {
+                this.searchTitles(query, tags, start + count, count, list).then(() => {
+                    deferred.resolve(list);
+                });
+            } else {
+                deferred.resolve(list);
+            }
+        });
+        
+        return deferred.promise;
     };
 
     this.search = function (query, fields, list) {
