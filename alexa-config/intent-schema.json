@@ -1,114 +1,218 @@
 {
-  "intents": [
-    {
-      "intent": "VolumeIntent",
-      "slots": [
-        {
-          "name": "Volume",
-          "type": "AMAZON.Number"
-        }
-      ]
-    },
-    {
-      "intent": "VolumeUpIntent"
-    },
-    {
-      "intent": "VolumeDownIntent"
-    },
-    {
-      "intent": "MuteIntent"
-    },
-    {
-      "intent": "UnMuteIntent"
-    },
-    {
-      "intent": "PlayArtistWithPlayerIntent",
-      "slots": [
-        {
-          "name": "Player",
-          "type": "AMAZON.Room"
-        },
-        {
-          "name": "Artist",
-          "type": "AMAZON.Artist"
-        }
-      ]
-    },
-    {
-      "intent": "PlayArtistIntent",
-      "slots": [
-        {
-          "name": "Artist",
-          "type": "AMAZON.Artist"
-        }
-      ]
-    },
-    {
-      "intent": "PlayGenreIntent",
-      "slots": [
-        {
-          "name": "Genre",
-          "type": "AMAZON.Genre"
-        }
-      ]
-    },
-    {
-      "intent": "PlayMusicIntent",
-      "slots": [
-        {
-          "name": "Player",
-          "type": "AMAZON.Room"
-        }
-      ]
-    },
-    {
-      "intent": "PlaySongIntent",
-      "slots": [
-        {
-          "name": "Song",
-          "type": "AMAZON.MusicRecording"
-        },
-        {
-          "name": "Artist",
-          "type": "AMAZON.Artist"
-        }
-      ]
-    },
-    {
-      "intent": "StopMusicIntent",
-      "slots": [
-        {
-          "name": "Player",
-          "type": "AMAZON.Room"
-        }
-      ]
-    },
-    {
-      "intent": "PowerOnIntent",
-      "slots": [
-        {
-          "name": "Player",
-          "type": "AMAZON.Room"
-        }
-      ]
-    },
-    {
-      "intent": "PowerOffIntent",
-      "slots": [
-        {
-          "name": "Player",
-          "type": "AMAZON.Room"
-        }
-      ]
-    },
-    {
-      "intent": "PowerOffAllIntent"
-    },
-    {
-      "intent": "SkipIntent"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
-    }
-  ]
+  "languageModel": {
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+      },
+      {
+        "name": "MuteIntent",
+        "samples": [
+          "mute"
+        ],
+        "slots": []
+      },
+      {
+        "name": "PlayArtistIntent",
+        "samples": [
+          "play {Artist}"
+        ],
+        "slots": [
+          {
+            "name": "Artist",
+            "type": "AMAZON.Artist"
+          }
+        ]
+      },
+      {
+        "name": "PlayArtistWithPlayerIntent",
+        "samples": [
+          "play {Artist} in the {Player}",
+          "play {Artist} on the {Player} player"
+        ],
+        "slots": [
+          {
+            "name": "Player",
+            "type": "AMAZON.Room"
+          },
+          {
+            "name": "Artist",
+            "type": "AMAZON.Artist"
+          }
+        ]
+      },
+      {
+        "name": "PlayGenreIntent",
+        "samples": [
+          "play {Genre} music",
+          "play some {Genre} music",
+          "play genre {Genre}"
+        ],
+        "slots": [
+          {
+            "name": "Genre",
+            "type": "AMAZON.Genre"
+          }
+        ]
+      },
+      {
+        "name": "PlayMusicIntent",
+        "samples": [
+          "play some music in the {Player}"
+        ],
+        "slots": [
+          {
+            "name": "Player",
+            "type": "AMAZON.Room"
+          }
+        ]
+      },
+      {
+        "name": "PlaySongIntent",
+        "samples": [
+          "play {Song} by {Artist}"
+        ],
+        "slots": [
+          {
+            "name": "Song",
+            "type": "AMAZON.MusicRecording"
+          },
+          {
+            "name": "Artist",
+            "type": "AMAZON.Artist"
+          }
+        ]
+      },
+      {
+        "name": "PowerOffAllIntent",
+        "samples": [
+          "turn off"
+        ],
+        "slots": []
+      },
+      {
+        "name": "PowerOffIntent",
+        "samples": [
+          "turn off {Player}",
+          "turn off the {Player}",
+          "turn off the {Player} player"
+        ],
+        "slots": [
+          {
+            "name": "Player",
+            "type": "AMAZON.Room"
+          }
+        ]
+      },
+      {
+        "name": "PowerOnIntent",
+        "samples": [
+          "turn on {Player}",
+          "turn on the {Player}",
+          "turn on the {Player} player"
+        ],
+        "slots": [
+          {
+            "name": "Player",
+            "type": "AMAZON.Room"
+          }
+        ]
+      },
+      {
+        "name": "SkipIntent",
+        "samples": [
+          "skip"
+        ],
+        "slots": []
+      },
+      {
+        "name": "StopMusicIntent",
+        "samples": [
+          "stop",
+          "pause"
+        ],
+        "slots": [
+          {
+            "name": "Player",
+            "type": "AMAZON.Room"
+          }
+        ]
+      },
+      {
+        "name": "UnMuteIntent",
+        "samples": [
+          "un mute"
+        ],
+        "slots": []
+      },
+      {
+        "name": "VolumeDownIntent",
+        "samples": [
+          "decrease the volume",
+          "lower the volume"
+        ],
+        "slots": []
+      },
+      {
+        "name": "VolumeIntent",
+        "samples": [
+          "set the volume to {Volume} percent",
+          "set the volume to {Volume}"
+        ],
+        "slots": [
+          {
+            "name": "Volume",
+            "type": "AMAZON.NUMBER"
+          }
+        ]
+      },
+      {
+        "name": "VolumeUpRelativeIntent",
+        "samples": [
+          "increase the volume by {VolumeDelta}",
+          "increase the volume by {VolumeDelta} percent",
+          "raise the volume by {VolumeDelta}",
+          "raise the volume by {VolumeDelta} percent"
+        ],
+        "slots": [
+          {
+            "name": "VolumeDelta",
+            "type": "AMAZON.NUMBER"
+          }
+        ]
+      },
+      {
+        "name": "VolumeDownRelativeIntent",
+        "samples": [
+          "decrease the volume by {VolumeDelta}",
+          "decrease the volume by {VolumeDelta} percent",
+          "lower the volume by {VolumeDelta}",
+          "lower the volume by {VolumeDelta} percent"
+        ],
+        "slots": [
+          {
+            "name": "VolumeDelta",
+            "type": "AMAZON.NUMBER"
+          }
+        ]
+      },
+      {
+        "name": "VolumeUpIntent",
+        "samples": [
+          "increase the volume",
+          "raise the volume"
+        ],
+        "slots": []
+      }
+    ],
+    "invocationName": "squeeze box"
+  }
 }

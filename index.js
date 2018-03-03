@@ -74,6 +74,22 @@ exports.handler = function (event, context, callback){
                 });
             });
         },
+        'VolumeUpRelativeIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
+                player.volumeUpRelative(this.event.request.intent.slots.VolumeDelta.value).then(() => {
+                    this.emit(':tell', 'Sure.');
+                });
+            });
+        },
+        'VolumeDownRelativeIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
+                player.volumeDownRelative(this.event.request.intent.slots.VolumeDelta.value).then(() => {
+                    this.emit(':tell', 'Sure.');
+                });
+            });
+        },
         'MuteIntent': function () {
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {

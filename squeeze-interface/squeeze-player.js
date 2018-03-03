@@ -49,6 +49,14 @@ SqueezePlayer.prototype.volumeDown = function () {
     return this.request(['mixer', 'volume', '-15']);
 };
 
+SqueezePlayer.prototype.volumeUpRelative = function (relativeLevel) {
+    return this.request(['mixer', 'volume', `+${relativeLevel}`]);
+};
+
+SqueezePlayer.prototype.volumeDownRelative = function (relativeLevel) {
+    return this.request(['mixer', 'volume', `-${relativeLevel}`]);
+};
+
 SqueezePlayer.prototype.playArtist = function (artistName, context) {
     log.info('Searching for artist: ' + artistName);
     return new Promise((resolve, reject) => {

@@ -4,6 +4,10 @@ VolumeUpIntent increase the volume
 VolumeUpIntent raise the volume
 VolumeDownIntent decrease the volume
 VolumeDownIntent lower the volume
+VolumeUpRelativeIntent increase the volume by {VolumeDelta}
+VolumeUpRelativeIntent raise the volume by {VolumeDelta}
+VolumeDownRelativeIntent decrease the volume by {VolumeDelta}
+VolumeDownRelativeIntent lower the volume by {VolumeDelta}
 MuteIntent mute
 UnMuteIntent un mute
 PlayArtistWithPlayerIntent play {Artist} in the {Player}
