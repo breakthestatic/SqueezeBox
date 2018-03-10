@@ -151,7 +151,6 @@ exports.handler = function (event, context, callback){
         },
         'RefreshArtistsIntent': function () {
             log.info('Intent: ' + this.event.request.intent.name);
-            log.info(JSON.stringify(this));
             var oldArtistList = this.attributes['artists'];
             squeezeServer.cacheArtists(this).then((newArtistList) => {
             	var diff = newArtistList.length - oldArtistList.length;
