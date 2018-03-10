@@ -211,6 +211,13 @@
           "raise the volume"
         ],
         "slots": []
+      },
+      {
+        "name": "RefreshArtistsIntent",
+        "samples": [
+          "Refresh the artists list"
+        ],
+        "slots": []
       }
     ],
     "invocationName": "squeeze box"

@@ -148,6 +148,15 @@ exports.handler = function (event, context, callback){
 
                 Promise.all(promises).then(() => this.emit(':tell', 'Sure! Turning off all players.'));
             });
+        },
+        'RefreshArtistsIntent': function () {
+            log.info('Intent: ' + this.event.request.intent.name);
+            log.info(JSON.stringify(this));
+            var oldArtistList = this.attributes['artists'];
+            squeezeServer.cacheArtists(this).then((newArtistList) => {
+            	var diff = newArtistList.length - oldArtistList.length;
+            	this.emit(':tell', `Artist list refreshed. ${diff} new artist${diff !== 1 && 's'} found.`);
+            });
         }
     };
 

@@ -49,21 +49,28 @@ function SqueezeServer (host, port, secret) {
         return deferred.promise;
     }
 
+    this.cacheArtists = function (context) {
+        return new Promise((resolve, reject) => {
+            this.getArtists().then((list) => {
+                if (context) {
+                    log.info('Caching artist list');
+                    context.attributes['artists'] = list;
+                    context.attributes['lastArtistListSync'] = moment().format('x');
+                }
+                resolve(list);
+            });
+        });
+    };
+
     this.searchArtists = function (query, context) {
         return new Promise((resolve, reject) => {
-            if (context && context.attributes['artists'] && (moment().diff(moment(context.attributes['lastArtistListSync'], 'x'), 'days')) < 2) {
+            if (context && context.attributes['artists'] && (moment().diff(moment(context.attributes['lastArtistListSync'], 'x'), 'days')) < 30) {
                 log.info('Loading artist list from cache');
                 var artists = this.search(query, ['artist'], context.attributes['artists']);
                 resolve(artists[0]);
             } else {
-                this.getArtists().then((list) => {
-                    if (context) {
-                        log.info('Caching artist list');
-                        context.attributes['artists'] = list;
-                        context.attributes['lastArtistListSync'] = moment().format('x');
-                    }
-
-                    var artists = this.search(query, ['artist'], list);
+                this.cacheArtists(context).then((artists) => {
+                    var foundArtists = this.search(query, ['artist'], list);
                     resolve(artists[0]);
                 });
             }
