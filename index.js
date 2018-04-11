@@ -125,9 +125,8 @@ exports.handler = function (event, context, callback){
         'PlaySongIntent': function () {
             log.info('Intent: ' + this.event.request.intent.name);
             squeezeServer.getPlayerByName(this.attributes['currentPlayer']).then((player) => {
-                player.playSong(this.event.request.intent.slots.Song.value, this.event.request.intent.slots.Artist.value, this).then(() => {
-                    this.emit(':tell', `Sure! Playing ${this.event.request.intent.slots.Song.value} by ${this.event.request.intent.slots.Artist.value}`);
-                });
+                player.playSong(this.event.request.intent.slots.Song.value, this.event.request.intent.slots.Artist.value, this).then(
+                    () => this.emit(':tell', `Sure! Playing ${this.event.request.intent.slots.Song.value} by ${this.event.request.intent.slots.Artist.value}`));
             });
         },
         'StopMusicIntent': function () {

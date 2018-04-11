@@ -70,7 +70,7 @@ function SqueezeServer (host, port, secret) {
                 resolve(artists[0]);
             } else {
                 this.cacheArtists(context).then((artists) => {
-                    var foundArtists = this.search(query, ['artist'], list);
+                    var foundArtists = this.search(query, ['artist'], artists);
                     resolve(artists[0]);
                 });
             }
@@ -85,7 +85,7 @@ function SqueezeServer (host, port, secret) {
         list = list || [];
         
         this.request(null, ['titles', start, count, 'search:' + query, tags || '']).then((reply) => {
-            var titles = reply.result.titles_loop;
+            var titles = reply.result.titles_loop || [];
             for (var i = 0; i < titles.length; i++) {
                 list.push(titles[i]);
             }

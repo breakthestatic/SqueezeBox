@@ -92,10 +92,12 @@ SqueezePlayer.prototype.playSong = function (songTitle, artistName, context) {
         	var filter = artist ? 'artist_id:' + artist.id : null;
         	
     		this.server.searchTitles(songTitle, filter).then((songs) => {
-                log.info('Playing song: ' + JSON.stringify(songTitle));
-                this.request(['playlistcontrol', 'cmd:load', 'track_id:' + songs[0].id]).then(() => {
+                if (songs && songs.length) {
+                    log.info('Playing song: ' + JSON.stringify(songTitle));
+                    this.request(['playlistcontrol', 'cmd:load', 'track_id:' + songs[0].id]).then(() => resolve());
+                } else {
                     resolve();
-                })
+                }
             });
         });
     });
